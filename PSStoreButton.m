@@ -273,7 +273,6 @@
     rect.size.width = self.frame.size.width;
     rect.size.height = self.frame.size.height;
     aLayer.frame = rect;
-    [aLayer layoutIfNeeded];
   }
 }
 
