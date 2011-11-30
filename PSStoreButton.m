@@ -88,7 +88,7 @@
 
 
 + (PSStoreButton *)storeButton {
-  return [[[self class] alloc] initWithFrame:CGRectMake(0, 0, 200, 35)];
+  return [[[[self class] alloc] initWithFrame:CGRectMake(0, 0, 200, 35)] autorelease];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
