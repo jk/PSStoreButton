@@ -185,41 +185,46 @@
 #pragma mark -
 #pragma mark NSObject
 
+- (void)setup {
+	CGRect frame = self.frame;
+  self.customPadding = CGPointZero;
+  self.layer.needsDisplayOnBoundsChange = YES;
+  
+  // setup title label
+  [self.titleLabel setFont:[UIFont boldSystemFontOfSize:13.0]];
+  
+  // register for touch events
+  [self addTarget:self action:@selector(touchedUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
+  [self addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+  
+  // border layers for more sex!
+  CAGradientLayer *bevelLayer = [CAGradientLayer layer];
+  bevelLayer.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithWhite:0.4 alpha:1.0] CGColor], [[UIColor whiteColor] CGColor], nil];
+  bevelLayer.frame = CGRectMake(0.0, 0.0, CGRectGetWidth(frame), CGRectGetHeight(frame));
+  bevelLayer.cornerRadius = 2.5;
+  bevelLayer.needsDisplayOnBoundsChange = YES;
+  [self.layer addSublayer:bevelLayer];
+  
+  CAGradientLayer *topBorderLayer = [CAGradientLayer layer];
+  topBorderLayer.colors = [NSArray arrayWithObjects:(id)[[UIColor darkGrayColor] CGColor], [[UIColor lightGrayColor] CGColor], nil];
+  topBorderLayer.frame = CGRectMake(0.5, 0.5, CGRectGetWidth(frame) - 1.0, CGRectGetHeight(frame) - 1.0);
+  topBorderLayer.cornerRadius = 2.6;
+  topBorderLayer.needsDisplayOnBoundsChange = YES;
+  [self.layer addSublayer:topBorderLayer];
+  
+  // main gradient layer
+  gradient_ = [[CAGradientLayer layer] retain];
+  gradient_.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:1.0], nil];//[NSNumber numberWithFloat:0.500], [NSNumber numberWithFloat:0.5001],
+  gradient_.frame = CGRectMake(0.75, 0.75, CGRectGetWidth(frame) - 1.5, CGRectGetHeight(frame) - 1.5);
+  gradient_.cornerRadius = 2.5;
+  gradient_.needsDisplayOnBoundsChange = YES;
+  [self.layer addSublayer:gradient_];
+  [self bringSubviewToFront:self.titleLabel];
+}
+
 - (id)initWithFrame:(CGRect)frame {
   if ((self = [super initWithFrame:frame])) {
-    self.customPadding = CGPointZero;
-    self.layer.needsDisplayOnBoundsChange = YES;
-    
-    // setup title label
-    [self.titleLabel setFont:[UIFont boldSystemFontOfSize:13.0]];
-    
-    // register for touch events
-    [self addTarget:self action:@selector(touchedUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
-    [self addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-    // border layers for more sex!
-    CAGradientLayer *bevelLayer = [CAGradientLayer layer];
-    bevelLayer.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithWhite:0.4 alpha:1.0] CGColor], [[UIColor whiteColor] CGColor], nil];
-    bevelLayer.frame = CGRectMake(0.0, 0.0, CGRectGetWidth(frame), CGRectGetHeight(frame));
-    bevelLayer.cornerRadius = 2.5;
-    bevelLayer.needsDisplayOnBoundsChange = YES;
-    [self.layer addSublayer:bevelLayer];
-    
-    CAGradientLayer *topBorderLayer = [CAGradientLayer layer];
-    topBorderLayer.colors = [NSArray arrayWithObjects:(id)[[UIColor darkGrayColor] CGColor], [[UIColor lightGrayColor] CGColor], nil];
-    topBorderLayer.frame = CGRectMake(0.5, 0.5, CGRectGetWidth(frame) - 1.0, CGRectGetHeight(frame) - 1.0);
-    topBorderLayer.cornerRadius = 2.6;
-    topBorderLayer.needsDisplayOnBoundsChange = YES;
-    [self.layer addSublayer:topBorderLayer];
-    
-    // main gradient layer
-    gradient_ = [[CAGradientLayer layer] retain];
-    gradient_.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0], [NSNumber numberWithFloat:1.0], nil];//[NSNumber numberWithFloat:0.500], [NSNumber numberWithFloat:0.5001],
-    gradient_.frame = CGRectMake(0.75, 0.75, CGRectGetWidth(frame) - 1.5, CGRectGetHeight(frame) - 1.5);
-    gradient_.cornerRadius = 2.5;
-    gradient_.needsDisplayOnBoundsChange = YES;
-    [self.layer addSublayer:gradient_];
-    [self bringSubviewToFront:self.titleLabel];
+    [self setup];
   }
   return self;
 }
@@ -229,6 +234,13 @@
     customPadding_ = padding;
   }
   return self;
+}
+
+- (id)initWithCoder:(NSCoder*)coder {
+	if ((self = [super initWithCoder:coder])) {
+		[self setup];
+	}
+	return self;
 }
 
 - (void)dealloc {
