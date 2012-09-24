@@ -35,7 +35,7 @@
 + (id)dataWithLabel:(NSString*)aLabel colors:(NSArray*)aColors enabled:(BOOL)flag;
 
 @property (nonatomic, copy) NSString *label;
-@property (nonatomic, retain) NSArray *colors;
+@property (nonatomic, strong) NSArray *colors;
 @property (nonatomic, assign, getter=isEnabled) BOOL enabled;
 
 @end
@@ -51,7 +51,7 @@
 // The interface is flexible, so there is now fixed order
 @interface PSStoreButton : UIButton {
   PSStoreButtonData *buttonData_;
-  id<PSStoreButtonDelegate> buttonDelegate_;
+  id<PSStoreButtonDelegate> __weak buttonDelegate_;
   
   CAGradientLayer *gradient_;
   CGPoint customPadding_;
@@ -65,10 +65,10 @@
 - (id)initWithPadding:(CGPoint)padding;
 
 // action delegate
-@property (nonatomic, assign) id<PSStoreButtonDelegate> buttonDelegate;
+@property (nonatomic, weak) id<PSStoreButtonDelegate> buttonDelegate;
 
 // change the button layer
-@property (nonatomic, retain) PSStoreButtonData *buttonData;
+@property (nonatomic, strong) PSStoreButtonData *buttonData;
 - (void)setButtonData:(PSStoreButtonData *)aButtonData animated:(BOOL)animated;
 
 // align helper

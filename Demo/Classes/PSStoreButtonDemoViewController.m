@@ -13,14 +13,14 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  storeButton1 = [[PSStoreButton storeButton] retain];
+  storeButton1 = [PSStoreButton storeButton];
   storeButton1.buttonDelegate = self;
   storeButton1.buttonData = [PSStoreButtonData dataWithLabel:@"3,99 $" colors:[PSStoreButton appStoreGreenColor] enabled:YES];
   storeButton1.tag = 1; // mark button for delegate
   storeButton1.frame = CGRectMake(20, 100, 100, 25);
   [self.view addSubview:storeButton1];
   
-  storeButton2 = [[PSStoreButton storeButton] retain];
+  storeButton2 = [PSStoreButton storeButton];
   storeButton2.buttonDelegate = self;
   storeButton2.buttonData = [PSStoreButtonData dataWithLabel:@"9,99 $" colors:[PSStoreButton appStoreGreenColor] enabled:YES];
   storeButton2.customPadding = CGPointMake(10, 10);
@@ -33,7 +33,7 @@
                           [UIColor redColor].CGColor,
                           [UIColor orangeColor].CGColor, nil];
   
-  storeButton3 = [[PSStoreButton storeButton] retain];
+  storeButton3 = [PSStoreButton storeButton];
   storeButton3.buttonDelegate = self;
   storeButton3.buttonData = [PSStoreButtonData dataWithLabel:@"Custom" colors:customColor enabled:YES];
   storeButton3.tag = 3; // mark button for delegate
@@ -54,12 +54,6 @@
 }
 
 
-- (void)dealloc {
-  [storeButton1 release];
-  [storeButton2 release];
-  [storeButton3 release];
-  [super dealloc];
-}
 
 - (void)resetButton1 {
   [storeButton1 setButtonData:[PSStoreButtonData dataWithLabel:@"3,99 $" colors:[PSStoreButton appStoreGreenColor] enabled:YES] animated:YES];
