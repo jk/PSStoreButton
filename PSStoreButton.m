@@ -256,7 +256,7 @@
 
 - (CGSize)sizeThatFits:(CGSize)size {
   CGSize constr = (CGSize){.height = self.frame.size.height, .width = PS_MAX_WIDTH};
-  CGSize newSize = [self.buttonData.label sizeWithFont:self.titleLabel.font constrainedToSize:constr lineBreakMode:UILineBreakModeMiddleTruncation];
+  CGSize newSize = [self.buttonData.label sizeWithFont:self.titleLabel.font constrainedToSize:constr lineBreakMode:NSLineBreakByTruncatingMiddle];
   CGFloat newWidth = newSize.width + (PS_PADDING * 2);
   CGFloat newHeight = PS_MIN_HEIGHT > newSize.height ? PS_MIN_HEIGHT : newSize.height;
   
